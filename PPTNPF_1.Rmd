@@ -354,21 +354,22 @@ ggplot(summary.3way, aes(x = MFQSelf_c,
   geom_line(size = .7, aes(linetype = Condition)) +
   xlab("MFQ Responses for Self") + 
   ylab("MFQ Responses for Target") + 
-  scale_linetype_manual("Issue polarization condition", 
+  scale_linetype_manual("Issue polarization", 
                         breaks = c(1,2,3,4), 
-                        labels = c ("Political candidate",
-                                   "Racial disadvantage",
-                                   "Marijuana legalization",
-                                   "Peanut butter preference"),
+                        labels = c ("Political\ncandidate",
+                                   "Racial\ndisadvantage",
+                                   "Marijuana\nlegalization",
+                                   "Peanut\nbutter"),
                         values = c("solid",
                                    "twodash", 
                                    "dotted", 
                                    "dashed")) + 
   ggtitle("Projection predicted by identification and issue polarization") +
-   theme(legend.position = "bottom", 
-         legend.text = element_text(size = 11)) +
-  theme_minimal(base_size = 13)
-
+  theme_minimal(base_size = 13) +
+  theme(legend.text = element_text(size = 10),
+        legend.key.width = unit(1, "cm"),
+        legend.position = "bottom")
+  
 ggpreview(width = 8, height = 6, units = "in")
 ```
 
@@ -413,20 +414,21 @@ ggplot(summary.2way.cond, aes(x = MFQSelf_c,
   geom_line(size = 1, aes(linetype = Condition)) +
   xlab("MFQ Responses for Self") + 
   ylab("MFQ Responses for Target") + 
-  scale_linetype_manual("Issue polarization condition", 
-                        breaks = c(1,2,3,4),
-                       labels = c("Political candidate",
-                                  "Racial disadvantage", 
-                                  "Marijuana legalization",
-                                  "Peanut Butter preference"),
+  scale_linetype_manual("Issue polarization", 
+                      breaks = c(1,2,3,4),
+                      labels = c("Political\ncandidate",
+                                  "Racial\ndisadvantage", 
+                                  "Marijuana\nlegalization",
+                                  "Peanut\nbutter"),
                        values = c("solid",
                                    "twodash", 
                                    "dotted", 
                                    "dashed")) +
-  ggtitle("Effect of Issue Polarization on Projection with Out-Group targets") +
-  theme(legend.position = "bottom", 
-        legend.text = element_text(size = 11)) +
-  theme_minimal(base_size = 13)
+  ggtitle("Effect of issue polarization on projection with out-group targets") +
+  theme_minimal(base_size = 13) +
+  theme(legend.text = element_text(size = 10),
+        legend.key.width = unit(1.2, "cm"))
+
 
 ggpreview(width = 8, height = 6, units = "in")
 ```
