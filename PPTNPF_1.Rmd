@@ -175,10 +175,10 @@ pptnpf1_comb  %>%
 pptnpf1_comb %>% 
   select(Subject, Condition) %>% 
   mutate(Condition = recode(Condition,
-                            `1` = "Political Candidate",
-                            `2` = "Racial Disadvantage",
-                            `3` = "Marijuana Legalization",
-                            `4` = "Peanut Butter Preference")) %>% 
+                            `1` = "Political candidate",
+                            `2` = "Racial disadvantage",
+                            `3` = "Marijuana legalization",
+                            `4` = "Peanut butter preference")) %>% 
   group_by(Condition) %>% 
   unique() %>% 
   count()
@@ -295,9 +295,9 @@ confint(Model1_randomslopes)
 ```{r three-way set-up,include = FALSE, echo = FALSE}
 #Creating label for in-group identification so it can be treated like a categorical variable in the plot
 describe(pptnpf1_comb$Identification_c)
-Ident_label <- c("-1.2" = "Low Identification \n (1 SD Below)",
-                 "0" = "Average \n Identification",
-                 "1.2" = "High Identification \n (1 SD Above)")
+Ident_label <- c("-1.2" = "Low identification \n (1 SD below)",
+                 "0" = "Average \n identification",
+                 "1.2" = "High identification \n (1 SD above)")
 
 #Getting summary stats to plot
 summary.3way <-summary(lsmeans(Model1_randomslopes, 
@@ -319,14 +319,14 @@ ggplot(summary.3way, aes(x = MFQSelf_c,
   facet_grid(.~Identification_c,
              labeller = labeller(Identification_c=Ident_label)) + 
   geom_line(size=1) +
-  xlab("MFQ Responses for Self") + 
-  ylab("MFQ Responses for Target") + 
+  xlab("MFQ responses for self") + 
+  ylab("MFQ responses for target") + 
   scale_color_discrete("", breaks = c(1,2,3,4), 
-                       labels = c ("Politics (P)", 
-                                   "Discrimination (D)",
-                                   "Marijuana (M)",
-                                   "Peanut Butter (PB)")) + 
-  ggtitle("Effect of In-group Identification and Issue Polarization \non Projection with Out-Group targets") +
+                       labels = c ("Politics", 
+                                   "Discrimination",
+                                   "Marijuana",
+                                   "Peanut Butter")) + 
+  ggtitle("Effect of in-group identification and issue polarization \non projection with out-group targets") +
    theme(legend.position = "bottom", 
          legend.text = element_text(size = 11)) +
   theme_minimal(base_size = 13)
@@ -352,8 +352,8 @@ ggplot(summary.3way, aes(x = MFQSelf_c,
   facet_grid(.~Identification_c,
              labeller = labeller(Identification_c = Ident_label)) + 
   geom_line(size = .7, aes(linetype = Condition)) +
-  xlab("MFQ Responses for Self") + 
-  ylab("MFQ Responses for Target") + 
+  xlab("MFQ responses for self") + 
+  ylab("MFQ responses for target") + 
   scale_linetype_manual("Issue polarization", 
                         breaks = c(1,2,3,4), 
                         labels = c ("Political\ncandidate",
@@ -389,15 +389,15 @@ ggplot(summary.2way.cond, aes(x = MFQSelf_c,
                               y = lsmean, 
                               color = as.factor(Condition)))+
   geom_line(size = 1) +
-  xlab("MFQ Responses for Self") + 
-  ylab("MFQ Responses for Target") + 
-  scale_color_discrete("Issue polarization condition", 
+  xlab("MFQ responses for self") + 
+  ylab("MFQ responses for target") + 
+  scale_color_discrete("Issue polarization", 
                        breaks = c(1,2,3,4),
                        labels = c("Political candidate",
                                   "Racial disadvantage", 
                                   "Marijuana legalization",
-                                  "Peanut Butter preference")) +
-  ggtitle("Effect of Issue Polarization on Projection with Out-Group targets") +
+                                  "Peanut Butter")) +
+  ggtitle("Effect of issue polarization on projection with out-group targets") +
   theme(legend.position = "bottom", 
         legend.text = element_text(size = 11)) +
   theme_minimal(base_size = 13)
@@ -412,8 +412,8 @@ ggplot(summary.2way.cond, aes(x = MFQSelf_c,
                               y = lsmean, 
                               group = as.factor(Condition)))+
   geom_line(size = 1, aes(linetype = Condition)) +
-  xlab("MFQ Responses for Self") + 
-  ylab("MFQ Responses for Target") + 
+  xlab("MFQ responses for self") + 
+  ylab("MFQ responses for target") + 
   scale_linetype_manual("Issue polarization", 
                       breaks = c(1,2,3,4),
                       labels = c("Political\ncandidate",
@@ -459,13 +459,13 @@ ggplot(effects_ident_main, aes(MFQSelf_c,
                                color = Identification)) +
   geom_smooth(method = "lm") +
   scale_color_discrete("Identification", breaks = c(-1.19, 0, 1.19), 
-                       labels =c ("Weak Identification \n (1 SD Below)", 
-                                  "Average Identification", 
-                                  "High Identification \n (1 SD above)")) +
+                       labels =c ("Weak identification \n (1 SD below)", 
+                                  "Average identification", 
+                                  "High identification \n (1 SD above)")) +
   theme_minimal() +
   labs(title = "Projection predicted by degree of in-group identification",
-       x = "MFQ ratings for self",
-       y = "MFQ ratings for target")
+       x = "MFQ responses for self",
+       y = "MFQ responses for target")
 ```
 
 ### Plot without color for publication
@@ -487,8 +487,8 @@ ggplot(effects_ident_main, aes(MFQSelf_c,
                                    "dotted")) +
   theme_minimal(base_size = 13) +
   labs(title = "Projection predicted by degree of in-group identification",
-       x = "MFQ ratings for self",
-       y = "MFQ ratings for target")
+       x = "MFQ responses for self",
+       y = "MFQ responses for target")
 
 ggpreview(width = 8, height = 6, units = "in")
 ```
