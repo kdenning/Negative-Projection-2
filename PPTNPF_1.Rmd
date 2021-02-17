@@ -3,10 +3,15 @@ title: "Negative Projection Follow-up 1"
 author: "Kathryn Denning"
 date: "Originally written June 2018; Updated July 2019"
 output: 
-  html_document:
-    code_folding: "hide"
-    toc: true
-    toc_float: true
+    html_document:
+      code_download: TRUE
+      toc: TRUE
+      toc_float:
+        collapsed: FALSE
+      toc_depth: 1
+      code_folding: hide
+editor_options: 
+  chunk_output_type: console
 ---
 **Variable Glossary:**
 
@@ -88,32 +93,7 @@ contrasts(pptnpf1_comb$Condition) <- ConCodes
 contrasts(pptnpf1_comb$Condition)
 ```
 
-# Reliability of scales
-
-## Reliability for target MFQ 
-
-```{r reliability targ}
-MFQtarg_data <- subset(pptnpf1, select = c(6, 7, 8, 9, 10, 12, 13, 14, 
-                                           15, 16, 17, 18, 19, 20, 21, 
-                                           23, 24, 25, 26, 27))
-cronbach(MFQtarg_data)
-```
-
-## Reliability for MFQ for participant (self)
-
-```{r reliability self}
-MFQself_data <- subset(pptnpf1,select = c(MFQ_Targ_1, MFQ_Targ_2, MFQ_Targ_3, 
-                                        MFQ_Targ_4, MFQ_Targ_5, MFQ_Targ_7, 
-                                        MFQ_Targ_8, MFQ_Targ_9, MFQ_Targ_10, 
-                                        MFQ_Targ_11, MFQ_Targ_12, MFQ_Targ_13, 
-                                        MFQ_Targ_15, MFQ_Targ_16, MFQ_Targ_17, 
-                                        MFQ_Targ_19, MFQ_Targ_20, MFQ_Targ_21, 
-                                        MFQ_Targ_22, MFQ_Targ_23))
-MFQself_data <- na.omit(MFQself_data)
-cronbach(MFQself_data)
-```
-
-# Descriptives
+# Descriptives {.tabset .tabset-fade .tabset-pills}
 
 ## Descriptives for the variables overall
 
@@ -123,7 +103,7 @@ describe(pptnpf1_comb$MFQSelf)
 describe(pptnpf1_comb$MFQTarg)
 ```
 
-## Mean and SD for MFQ
+## Mean/SD for MFQ by condition
 
 ### MFQ for Self
 
@@ -147,7 +127,7 @@ pptnpf1_comb %>%
             sd = sd(MFQTarg))
 ```
 
-## Mean and SD for in-group identification
+## Mean/SD for identification by condition
 
 ```{r identification}
 pptnpf1_comb %>% 
@@ -158,7 +138,117 @@ pptnpf1_comb %>%
             sd = sd(Identification))
 ```
 
-# Demographics
+## Reliability for self MFQ 
+
+### Overall
+
+```{r reliability targ}
+MFQself_data <- subset(pptnpf1, select = c(6, 7, 8, 9, 10, 12, 13, 14, 
+                                           15, 16, 17, 18, 19, 20, 21, 
+                                           23, 24, 25, 26, 27))
+psych::alpha(MFQself_data)
+```
+
+### Harm
+
+```{r self harm}
+harm_self <- MFQself_data %>% 
+  select(MFQ_Self_1, MFQ_Self_7, MFQ_Self_12, MFQ_Self_19)
+psych::alpha(harm_self)
+```
+
+### Fairness
+
+```{r self fair}
+fair_self <- MFQself_data %>% 
+  select(MFQ_Self_2, MFQ_Self_8, MFQ_Self_13, MFQ_Self_20)
+psych::alpha(fair_self)
+```
+
+### In-group
+
+```{r self ingroup}
+ingroup_self <- MFQself_data %>% 
+  select(MFQ_Self_3, MFQ_Self_9, MFQ_Self_15, MFQ_Self_21)
+psych::alpha(ingroup_self)
+```
+
+### Authority
+
+```{r self authority}
+authority_self <- MFQself_data %>% 
+  select(MFQ_Self_4, MFQ_Self_10, MFQ_Self_16, MFQ_Self_22)
+psych::alpha(authority_self)
+```
+
+### Purity
+
+```{r self purity}
+purity_self <- MFQself_data %>% 
+  select(MFQ_Self_5, MFQ_Self_11, MFQ_Self_17, MFQ_Self_23)
+psych::alpha(purity_self)
+```
+
+## Reliability for target MFQ
+
+### Overall
+
+```{r reliability target}
+# Accidentally skipped "14" when labeling the items in the dataset and did not want to re-work things in case I introduced a coding error
+MFQtarg_data <- subset(pptnpf1,select = c(MFQ_Targ_1, MFQ_Targ_2, MFQ_Targ_3, 
+                                        MFQ_Targ_4, MFQ_Targ_5, MFQ_Targ_7, 
+                                        MFQ_Targ_8, MFQ_Targ_9, MFQ_Targ_10, 
+                                        MFQ_Targ_11, MFQ_Targ_12, MFQ_Targ_13, 
+                                        MFQ_Targ_15, MFQ_Targ_16, MFQ_Targ_17, 
+                                        MFQ_Targ_19, MFQ_Targ_20, MFQ_Targ_21, 
+                                        MFQ_Targ_22, MFQ_Targ_23))
+MFQtarg_data <- na.omit(MFQtarg_data)
+psych::alpha(MFQtarg_data)
+```
+
+### Harm
+
+```{r targ harm}
+harm_targ <- MFQtarg_data %>% 
+  select(MFQ_Targ_1, MFQ_Targ_7, MFQ_Targ_12, MFQ_Targ_19)
+psych::alpha(harm_targ)
+```
+
+### Fairness
+
+```{r targ fair}
+fair_targ <- MFQtarg_data %>% 
+  select(MFQ_Targ_2, MFQ_Targ_8, MFQ_Targ_13, MFQ_Targ_20)
+psych::alpha(fair_targ)
+```
+
+### In-group
+
+```{r targ ingroup}
+ingroup_targ <- MFQtarg_data %>% 
+  select(MFQ_Targ_3, MFQ_Targ_9, MFQ_Targ_15, MFQ_Targ_21)
+psych::alpha(ingroup_targ)
+```
+
+### Authority
+
+```{r targ authority}
+authority_targ <- MFQtarg_data %>% 
+  select(MFQ_Targ_4, MFQ_Targ_10, MFQ_Targ_16, MFQ_Targ_22)
+psych::alpha(authority_targ)
+```
+
+### Purity
+
+```{r targ purity}
+purity_targ <- MFQtarg_data %>% 
+  select(MFQ_Targ_5, MFQ_Targ_11, MFQ_Targ_17, MFQ_Targ_23)
+psych::alpha(purity_targ)
+```
+
+
+
+# Demographics {.tabset .tabset-fade .tabset-pills}
 
 ## Number of participants - Overall
 
@@ -257,7 +347,7 @@ pptnpf1_comb %>%
             SD = sd(`mean(Age)`))
 ```
 
-# Model
+# Model {.tabset .tabset-fade .tabset-pills}
 
 
 ## Contrast codes
@@ -284,11 +374,12 @@ tab_model(Model1_randomslopes,
 ```
 
 ## Confidence intervals to more than two decimal places
+
 ```{r conf int to more decimals}
 confint(Model1_randomslopes)
 ```
 
-# Plots
+# Plots {.tabset .tabset-fade .tabset-pills}
 
 ## Plot of three-way interaction
 
